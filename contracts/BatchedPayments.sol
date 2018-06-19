@@ -58,23 +58,23 @@ contract BatchedPayments is Ownable {
     mapping(bytes32 => bool) successfulPayments;
 
 
-    function paymentSuccessful(bytes32 paymentId) onlyOwner returns (bool){
+    function paymentSuccessful(bytes32 paymentId) public onlyOwner returns (bool){
         return successfulPayments[paymentId];
     }
 
     //withdraw any eth inside
-    function withdraw() onlyOwner {
+    function withdraw() public onlyOwner {
         msg.sender.transfer(this.balance);
     }
 
     function send(address _tokenAddr, address dest, uint value)
-    onlyOwner
+    public onlyOwner
     {
       require(ERC20(_tokenAddr).transfer(dest, value));
     }
 
     function multisend(address _tokenAddr, bytes32 paymentId, address[] dests, uint256[] values)
-    onlyOwner
+    public onlyOwner
       returns (uint256) {
 
         require(dests.length > 0);
