@@ -85,7 +85,7 @@ contract BatchedPayments is Ownable {
 
         uint256 i = 0;
         while (i < dests.length) {
-           ERC20(_tokenAddr).transfer(dests[i], values[i]);
+           require(ERC20(_tokenAddr).transfer(dests[i], values[i]));
            i += 1;
         }
 
