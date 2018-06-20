@@ -58,8 +58,8 @@ contract BatchedPayments is Ownable {
     mapping(bytes32 => bool) successfulPayments;
 
 
-    function paymentSuccessful(bytes32 paymentId) public onlyOwner returns (bool){
-        return successfulPayments[paymentId];
+    function paymentSuccessful(bytes32 paymentId) public constant returns (bool){
+        return (successfulPayments[paymentId] == true);
     }
 
     //withdraw any eth inside
