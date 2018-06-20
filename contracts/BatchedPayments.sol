@@ -69,13 +69,15 @@ contract BatchedPayments is Ownable {
 
     function send(address _tokenAddr, address dest, uint value)
     public onlyOwner
+    returns (bool)
     {
-      require(ERC20(_tokenAddr).transfer(dest, value));
+     return ERC20(_tokenAddr).transfer(dest, value);
     }
 
     function multisend(address _tokenAddr, bytes32 paymentId, address[] dests, uint256[] values)
     public onlyOwner
-      returns (uint256) {
+    returns (uint256)
+     {
 
         require(dests.length > 0);
         require(values.length >= dests.length);
@@ -83,7 +85,7 @@ contract BatchedPayments is Ownable {
 
         uint256 i = 0;
         while (i < dests.length) {
-           require(ERC20(_tokenAddr).transfer(dests[i], values[i]));
+           ERC20(_tokenAddr).transfer(dests[i], values[i]);
            i += 1;
         }
 
